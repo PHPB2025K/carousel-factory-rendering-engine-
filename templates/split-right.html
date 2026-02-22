@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family={{font_heading}}:wght@400;700;900&family={{font_body}}:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1350px;
+    overflow: hidden;
+    font-family: '{{font_body}}', sans-serif;
+  }
+
+  .slide {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    background: {{background}};
+    position: relative;
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 50px;
+    text-align: left;
+  }
+
+  .image-panel {
+    width: 45%;
+    height: 100%;
+    background-image: url('{{image_url}}');
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+  }
+
+  .image-placeholder {
+    width: 45%;
+    height: 100%;
+    background: {{accent_color}};
+    opacity: 0.15;
+    flex-shrink: 0;
+  }
+
+  .heading {
+    font-family: '{{font_heading}}', sans-serif;
+    font-size: {{heading_size}};
+    font-weight: 700;
+    color: {{text_color_primary}};
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .accent-bar {
+    width: 50px;
+    height: 4px;
+    background: {{accent_color}};
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+
+  .body-text {
+    font-size: {{body_size}};
+    color: {{text_color_secondary}};
+    line-height: 1.6;
+  }
+
+  .logo {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    height: 32px;
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <div class="content">
+      <div class="heading">{{heading}}</div>
+      <div class="accent-bar"></div>
+      <div class="body-text">{{body_text}}</div>
+    </div>
+    <div class="image-panel"></div>
+    {{#if logo_url}}
+    <img class="logo" src="{{logo_url}}" alt="logo">
+    {{/if}}
+  </div>
+</body>
+</html>

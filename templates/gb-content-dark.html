@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family={{font_heading}}:wght@400;700;900&family={{font_body}}:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1350px;
+    overflow: hidden;
+    font-family: '{{font_body}}', sans-serif;
+  }
+
+  .slide {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: {{background}};
+    position: relative;
+  }
+
+  .watermark-top, .watermark-bottom {
+    position: absolute;
+    left: 0; right: 0;
+    z-index: 4;
+    display: flex;
+    justify-content: space-around;
+    font-family: '{{font_body}}', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.02em;
+    padding: 0 20px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .watermark-top { top: 12px; }
+  .watermark-bottom { bottom: 12px; }
+
+  .image-panel {
+    width: 100%;
+    height: 40%;
+    background-image: url('{{image_url}}');
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    height: 40%;
+    background: rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 60px 60px;
+    text-align: left;
+  }
+
+  .label {
+    font-family: '{{font_heading}}', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 8px;
+  }
+
+  .heading {
+    font-family: '{{font_heading}}', sans-serif;
+    font-size: {{heading_size}};
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  .body-text {
+    font-size: {{body_size}};
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    max-width: 900px;
+  }
+
+  .logo {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    z-index: 3;
+    height: 32px;
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <div class="watermark-top">
+      <span>{{profile_handle}}</span>
+      <span>{{profile_handle}}</span>
+      <span>{{profile_handle}}</span>
+      <span>{{profile_handle}}</span>
+    </div>
+
+    {{#if image_url}}
+    <div class="image-panel"></div>
+    {{/if}}
+
+    <div class="content">
+      {{#if label_text}}
+      <div class="label">{{label_text}}</div>
+      {{/if}}
+      <div class="heading">{{heading}}</div>
+      <div class="body-text">{{body_text}}</div>
+    </div>
+
+    <div class="watermark-bottom">
+      <span>{{profile_handle}}</span>
+      <span>{{profile_handle}}</span>
+      <span>{{profile_handle}}</span>
+      <span>{{profile_handle}}</span>
+    </div>
+
+    {{#if logo_url}}
+    <img class="logo" src="{{logo_url}}" alt="logo">
+    {{/if}}
+  </div>
+</body>
+</html>

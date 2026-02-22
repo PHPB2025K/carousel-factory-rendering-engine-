@@ -1,0 +1,14 @@
+{
+  "name": "carousel-rendering-engine",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "puppeteer": "^23.0.0",
+    "cors": "^2.8.5"
+  }
+}

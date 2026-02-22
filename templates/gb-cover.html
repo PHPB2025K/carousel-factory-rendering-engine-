@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family={{font_heading}}:wght@400;700;900&family={{font_body}}:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1350px;
+    overflow: hidden;
+    font-family: '{{font_body}}', sans-serif;
+  }
+
+  .slide {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .bg-image {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url('{{image_url}}');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+
+  .overlay {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 55%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      {{accent_color}}dd 25%,
+      {{accent_color}}f0 100%
+    );
+    z-index: 1;
+  }
+
+  .watermark-top, .watermark-bottom {
+    position: absolute;
+    left: 0; right: 0;
+    z-index: 4;
+    display: flex;
+    justify-content: space-around;
+    font-family: '{{font_body}}', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.02em;
+    padding: 0 20px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .watermark-top { top: 12px; }
+  .watermark-bottom { bottom: 12px; }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    padding: 0 60px 100px;
+    text-align: left;
+  }
+
+  .badge {
+    display: inline-block;
+    background: {{accent_color}};
+    color: #FFFFFF;
+    font-family: '{{font_heading}}', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .heading {
+    font-family: '{{font_heading}}', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1.15;
+    margin-bottom: 28px;
+    max-width: 900px;
+  }
+
+  .swipe-cta {
+    font-family: '{{font_heading}}', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .logo {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    z-index: 3;
+    height: 36px;
+    opacity: 0.8;
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    {{#if image_url}}
+    <div class="bg-image"></div>
+    {{/if}}
+    <div class="overlay"></div>
+
+    <div class="watermark-top">
+      <span>{{profile_handle}}</span>
+      <span>{{profile_handle}}</span>
+      <span>{{profile_handle}}</span>
+      <span>{{profile_handle}}</span>
+    </div>
+
+    <div class="content">
+      {{#if label_text}}
+      <div class="badge">{{label_text}}</div>
+      {{/if}}
+      <div class="heading">{{heading}}</div>
+      {{#if swipe_text}}
+      <div class="swipe-cta">{{swipe_text}}</div>
+      {{/if}}
+    </div>
+
+    <div class="watermark-bottom">
+      <span>{{profile_handle}}</span>
+      <span>{{profile_handle}}</span>
+      <span>{{profile_handle}}</span>
+      <span>{{profile_handle}}</span>
+    </div>
+
+    {{#if logo_url}}
+    <img class="logo" src="{{logo_url}}" alt="logo">
+    {{/if}}
+  </div>
+</body>
+</html>
