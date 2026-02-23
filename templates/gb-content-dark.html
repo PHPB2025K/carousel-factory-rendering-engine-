@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family={{font_heading}}:wght@400;700;900&family={{font_body}}:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family={{font_heading}}:wght@400;700&family={{font_body}}:wght@400;700&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -30,48 +30,48 @@
     display: flex;
     justify-content: space-around;
     font-family: '{{font_body}}', sans-serif;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.2);
-    letter-spacing: 0.02em;
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.25);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     padding: 0 20px;
     overflow: hidden;
     white-space: nowrap;
   }
 
-  .watermark-top { top: 12px; }
-  .watermark-bottom { bottom: 12px; }
+  .watermark-top { top: 10px; }
+  .watermark-bottom { bottom: 10px; }
 
-  .image-panel {
-    width: 100%;
-    height: 40%;
-    background-image: url('{{image_url}}');
-    background-size: cover;
-    background-position: center;
+  .image-area {
+    padding: 70px 100px 0;
     flex-shrink: 0;
   }
 
-  .image-placeholder {
+  .image-panel {
     width: 100%;
-    height: 40%;
-    background: rgba(255, 255, 255, 0.08);
-    flex-shrink: 0;
+    height: 420px;
+    background-image: url('{{image_url}}');
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
   }
 
   .content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 40px 60px 60px;
+    justify-content: flex-start;
+    padding: 40px 100px 80px;
     text-align: left;
   }
 
   .label {
     font-family: '{{font_heading}}', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.8rem;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 8px;
+    color: #FFFFFF;
+    margin-bottom: 12px;
   }
 
   .heading {
@@ -81,13 +81,19 @@
     color: #FFFFFF;
     line-height: 1.2;
     margin-bottom: 20px;
-    font-style: italic;
+    max-width: 900px;
+  }
+
+  .heading .light {
+    font-weight: 400;
   }
 
   .body-text {
+    font-family: '{{font_body}}', sans-serif;
     font-size: {{body_size}};
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.6;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.5;
     max-width: 900px;
   }
 
@@ -108,10 +114,13 @@
       <span>{{profile_handle}}</span>
       <span>{{profile_handle}}</span>
       <span>{{profile_handle}}</span>
+      <span>{{profile_handle}}</span>
     </div>
 
     {{#if image_url}}
-    <div class="image-panel"></div>
+    <div class="image-area">
+      <div class="image-panel"></div>
+    </div>
     {{/if}}
 
     <div class="content">
@@ -119,10 +128,13 @@
       <div class="label">{{label_text}}</div>
       {{/if}}
       <div class="heading">{{heading}}</div>
+      {{#if body_text}}
       <div class="body-text">{{body_text}}</div>
+      {{/if}}
     </div>
 
     <div class="watermark-bottom">
+      <span>{{profile_handle}}</span>
       <span>{{profile_handle}}</span>
       <span>{{profile_handle}}</span>
       <span>{{profile_handle}}</span>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family={{font_heading}}:wght@400;700;900&family={{font_body}}:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family={{font_heading}}:wght@400;700&family={{font_body}}:wght@400;700&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -21,7 +21,7 @@
     flex-direction: column;
     justify-content: center;
     background: {{background}};
-    padding: 80px 60px;
+    padding: 80px 80px;
     position: relative;
   }
 
@@ -32,37 +32,43 @@
     display: flex;
     justify-content: space-around;
     font-family: '{{font_body}}', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 400;
     color: rgba(255, 255, 255, 0.25);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     padding: 0 20px;
     overflow: hidden;
     white-space: nowrap;
   }
 
-  .watermark-top { top: 12px; }
-  .watermark-bottom { bottom: 12px; }
+  .watermark-top { top: 10px; }
+  .watermark-bottom { bottom: 10px; }
 
   .heading {
     font-family: '{{font_heading}}', sans-serif;
-    font-size: 3rem;
-    font-weight: 900;
+    font-size: 2.5rem;
+    font-weight: 700;
     color: #FFFFFF;
     line-height: 1.15;
     margin-bottom: 40px;
     max-width: 900px;
   }
 
+  .heading .light {
+    font-weight: 400;
+  }
+
   .share-cta {
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
   }
 
   .share-icon {
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
     background: rgba(255, 255, 255, 0.15);
     border-radius: 10px;
     display: flex;
@@ -72,23 +78,25 @@
   }
 
   .share-icon svg {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     fill: #FFFFFF;
   }
 
   .share-text {
     font-family: '{{font_heading}}', sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #FFFFFF;
     line-height: 1.3;
   }
 
   .body-text {
+    font-family: '{{font_body}}', sans-serif;
     font-size: 1.3rem;
+    font-weight: 400;
     color: rgba(255, 255, 255, 0.85);
-    line-height: 1.6;
+    line-height: 1.5;
     max-width: 800px;
   }
 
@@ -109,6 +117,7 @@
       <span>{{profile_handle}}</span>
       <span>{{profile_handle}}</span>
       <span>{{profile_handle}}</span>
+      <span>{{profile_handle}}</span>
     </div>
 
     <div class="heading">{{heading}}</div>
@@ -124,9 +133,12 @@
     </div>
     {{/if}}
 
+    {{#if body_text}}
     <div class="body-text">{{body_text}}</div>
+    {{/if}}
 
     <div class="watermark-bottom">
+      <span>{{profile_handle}}</span>
       <span>{{profile_handle}}</span>
       <span>{{profile_handle}}</span>
       <span>{{profile_handle}}</span>

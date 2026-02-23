@@ -88,6 +88,8 @@ function injectVariables(html, data) {
     text_color_primary: data.text_color_primary || '#1A1A1A',
     text_color_secondary: data.text_color_secondary || '#666666',
     accent_color: data.accent_color || '#3B82F6',
+    secondary_color: data.secondary_color || data.accent_color || '#3B82F6',
+    badge_text: data.badge_text || '',
     font_heading: data.font_heading || 'Inter',
     font_body: data.font_body || 'Inter',
     heading_size: data.heading_size || '2.5rem',
