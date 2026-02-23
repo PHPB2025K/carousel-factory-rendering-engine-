@@ -7,8 +7,9 @@
     "dev": "node --watch server.js"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.97.0",
+    "cors": "^2.8.5",
     "express": "^4.21.0",
-    "puppeteer": "^23.0.0",
-    "cors": "^2.8.5"
+    "puppeteer": "^23.0.0"
   }
 }

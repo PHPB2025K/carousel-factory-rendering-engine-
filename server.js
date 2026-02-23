@@ -1,14 +1,53 @@
 const express = require('express');
 const cors = require('cors');
 const puppeteer = require('puppeteer');
+const { createClient } = require('@supabase/supabase-js');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
 const PORT = process.env.PORT || 3100;
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://xxbsjbgipmtzojhtsrve.supabase.co';
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY || '';
+const STORAGE_BUCKET = 'carousel-slides';
+
+let supabase;
+function getSupabase() {
+  if (!supabase && SUPABASE_SERVICE_KEY) {
+    supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
+  }
+  return supabase;
+}
+
+async function uploadToStorage(pngBuffer, carouselId, slidePosition) {
+  const sb = getSupabase();
+  if (!sb) {
+    throw new Error('Supabase not configured — set SUPABASE_SERVICE_KEY env var');
+  }
+
+  const filename = `${carouselId || crypto.randomUUID()}/${slidePosition || Date.now()}.png`;
+
+  const { data, error } = await sb.storage
+    .from(STORAGE_BUCKET)
+    .upload(filename, pngBuffer, {
+      contentType: 'image/png',
+      upsert: true,
+    });
+
+  if (error) {
+    throw new Error(`Storage upload failed: ${error.message}`);
+  }
+
+  const { data: publicData } = sb.storage
+    .from(STORAGE_BUCKET)
+    .getPublicUrl(filename);
+
+  return publicData.publicUrl;
+}
 const SLIDE_WIDTH = 1080;
 const SLIDE_HEIGHT = 1350;
 const DEVICE_SCALE_FACTOR = 2;
@@ -130,6 +169,24 @@ app.post('/render-slide', async (req, res) => {
     }
 
     const base64 = await renderSlide(data);
+    const pngBuffer = Buffer.from(base64, 'base64');
+
+    // If Supabase is configured, upload and return public URL
+    if (getSupabase()) {
+      const carouselId = data.carousel_id || data.carouselId || 'unknown';
+      const slidePos = data.slide_number || data.position || Date.now();
+      const publicUrl = await uploadToStorage(pngBuffer, carouselId, slidePos);
+
+      return res.json({
+        success: true,
+        url: publicUrl,
+        format: 'png',
+        width: SLIDE_WIDTH * DEVICE_SCALE_FACTOR,
+        height: SLIDE_HEIGHT * DEVICE_SCALE_FACTOR,
+      });
+    }
+
+    // Fallback: return base64 if no Supabase
     res.json({
       success: true,
       image: base64,
@@ -146,20 +203,24 @@ app.post('/render-slide', async (req, res) => {
 // Render full carousel
 app.post('/render-carousel', async (req, res) => {
   try {
-    const { slides } = req.body;
+    const { slides, carousel_id, carouselId } = req.body;
     if (!Array.isArray(slides) || slides.length === 0) {
       return res.status(400).json({ error: 'slides array is required' });
     }
 
+    const cId = carousel_id || carouselId || crypto.randomUUID();
     const results = [];
     for (let i = 0; i < slides.length; i++) {
       const slide = { ...slides[i], slide_number: i + 1, total_slides: slides.length };
       const base64 = await renderSlide(slide);
-      results.push({
-        position: i + 1,
-        image: base64,
-        format: 'png',
-      });
+
+      if (getSupabase()) {
+        const pngBuffer = Buffer.from(base64, 'base64');
+        const publicUrl = await uploadToStorage(pngBuffer, cId, i + 1);
+        results.push({ position: i + 1, url: publicUrl, format: 'png' });
+      } else {
+        results.push({ position: i + 1, image: base64, format: 'png' });
+      }
     }
 
     res.json({ success: true, slides: results });
