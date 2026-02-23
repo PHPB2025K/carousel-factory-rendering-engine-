@@ -94,6 +94,14 @@
     max-width: 900px;
   }
 
+  .body-text {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    max-width: 800px;
+    margin-bottom: 24px;
+  }
+
   .swipe-cta {
     font-family: '{{font_heading}}', sans-serif;
     font-size: 1rem;
@@ -132,6 +140,9 @@
       <div class="badge">{{label_text}}</div>
       {{/if}}
       <div class="heading">{{heading}}</div>
+      {{#if body_text}}
+      <div class="body-text">{{body_text}}</div>
+      {{/if}}
       {{#if swipe_text}}
       <div class="swipe-cta">{{swipe_text}}</div>
       {{/if}}
